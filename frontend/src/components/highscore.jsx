@@ -9,7 +9,8 @@ function Score() {
   
 
   useEffect(() => {
-    const apiURL = import.meta.env.REACT_APP_API_URL;
+    const apiURL = import.meta.env.VITE_API_URL;
+    
   
     axios.get(apiURL) // Ensure the correct API endpoint
       .then(response => {

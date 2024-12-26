@@ -19,11 +19,12 @@ function Game() {
     const handleEndGame = () => {
         navigate('/gameover');
     };
-    
+
     useEffect(() => {
+        const apiURL = import.meta.env.VITE_API_URL;
         const fetchHighScore = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5000/score');
+                const response = await axios.get(apiURL);
                 setHighScore(response.data.score || 0); // Update state with backend value
             } catch (error) {
                 console.error("Error fetching high score:", error);
@@ -34,9 +35,10 @@ function Game() {
     }, []);
 
     useEffect(() => {
+        const apiURL = import.meta.env.VITE_API_URL;
         try{
             if (score > highScore) {
-                axios.put('http://127.0.0.1:5000/score', { score });
+                axios.put(apiURL, { score });
             }
         }
         catch (error) {
