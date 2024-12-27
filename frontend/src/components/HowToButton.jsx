@@ -3,18 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import './styles.css';
 
 
-function TutorialButton() {
+function HowTo() {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/tutorial');
+        navigate('/howto');
     };
 
     return (
-        <button className="tutorial-button" onClick={handleClick}>
-            Tutorial
+        <button className="howto-button" onClick={handleClick}>
+            How To Play
         </button>
     );
 }
 
-export default TutorialButton;
+export default HowTo;
