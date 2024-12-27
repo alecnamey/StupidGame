@@ -28,7 +28,7 @@
     font-family: 'Courier New', Courier, monospace;
 }
 
-.header-container .tutorial-button {
+.header-container .howto-button {
     position: absolute;
     bottom: 0;
     left: 80%;
@@ -91,7 +91,7 @@
 
 
  
- .tutorial-container .back-button{
+ .howto-container .back-button{
     position: fixed;
     top: 0;
     left: 0;
@@ -99,12 +99,12 @@
     color: rgb(0, 0, 0);
  }
 
- .tutorial-container .tutorial-title{
+ .howto-container .tutorial-title{
     top: 2em;
     display: absolute;
     margin: 0;
  }
- .tutorial-container .logo{
+ .howto-container .logo{
     height: 30em;
     width: auto;
     position: fixed;
@@ -113,18 +113,18 @@
    
  }
 
-.tutorial-table {
+.howto-table {
     background-color: hsla(180, 7%, 62%, 0.2);
     font-size: large;
     margin-left: 32em;
     margin-top: 9em;
     border: 2px solid black;
 }
-.tutorial-container .tutorial-title{
+.howto-container .howto-title{
     background-color: hsla(180, 7%, 62%, 0.2);
     position: fixed;
     left: 12em;
-    margin-top: 1.6em;
+    top: 3em;
     border: 2px solid black;
     border-radius: 20%;
     padding: 0.1em;
@@ -136,8 +136,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: hsl(196, 70%, 40%);
-    color: rgb(11, 12, 90);
+    background-color: hsl(193, 67%, 29%);
     font-size: 1.2rem;
     padding: 0.4em;
     border-radius: 40px;

@@ -98,6 +98,11 @@ function Game() {
           onClick={handleClick}
           style={{
             position: 'absolute',
+            backgroundColor: 'light-blue',
+            transition: 'background-color 0.1s ease',
+            '&:hover': {
+              backgroundColor: 'white',
+            },
             top: positions.clickMe.top,
             left: positions.clickMe.left,
             transform: 'translate(-50%, -50%)', // Center the button

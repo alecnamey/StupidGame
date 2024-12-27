@@ -2,7 +2,7 @@
 import Header from '../components/header.jsx';
 import Start from '../components/start.jsx';
 import Score from '../components/highscore.jsx';
-import Tutorial from '../components/tutorialButton.jsx';
+import HowTo from '../components/HowToButton.jsx';
 import '../components/styles.css';
 
 
@@ -12,7 +12,7 @@ function Main(){
             <Header className="header" />
             <Start className="start" />
             <Score className="score" />
-            <Tutorial className="tutorial" />
+            <HowTo className="howto" />
         </div>
     );
 

@@ -3,14 +3,14 @@ import '../components/styles.css';
 import Header from '../components/header.jsx';
 import Back from '../components/back.jsx';
 
-function Tutorial() {
+function HowTo() {
     
     return (
-        <div className="tutorial-container">
+        <div className="howto-container">
             <Header/>
             <Back className="back-page" />
-            <h1 className="tutorial-title">Tutorial</h1>
-            <table className="tutorial-table">
+            <h1 className="howto-title">Tutorial</h1>
+            <table className="howto-table">
                 <tr>
                     <td><p>1. Welcome to my Stupid Game</p></td>
                 </tr>
@@ -34,4 +34,4 @@ function Tutorial() {
     );
 }
 
-export default Tutorial;
+export default HowTo;
