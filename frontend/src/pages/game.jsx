@@ -1,51 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/styles.css';
-import monster from '../assets/monster1.png';
+import monster from '../assets/monsterIMG.png';
 import BackButton from '../components/back.jsx';
-import HighScore from '../components/highscore.jsx';
 import axios from 'axios';
 
 function Game() {
+  
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [ogHS, setOgHS] = useState(0);
   const navigate = useNavigate();
   const [positions, setPositions] = useState({
     clickMe: { top: '50%', left: '50%' },
     monsters: [{ top: '50%', left: '50%' }]
   });
 
-
+// $START GAME SECTION------------------------------------------------------------------------------
     useEffect(() => {
-        const apiURL = import.meta.env.VITE_API_URL;
-        const fetchHighScore = async () => {
-            try {
-                const response = await axios.get(apiURL);
-                setHighScore(response.data.score || 0); // Update state with backend value
-            } catch (error) {
-                console.error("Error fetching high score:", error);
-            }
-        };
+      const apiURL = import.meta.env.VITE_API_URL;
+      const fetchHighScore = () => {
+        try {
+          axios.get(apiURL)
+            .then(response => {
+              setHighScore(response.data.score || 0); 
+              setOgHS(response.data.score || 0);
+            })
+            .catch(error => {
+              console.error("Error fetching high score:", error);
+            });
+        } catch (error) {
+          console.error("Error fetching high score:", error);
+        }
+      };
 
-        fetchHighScore();
-    }, []);
-
+      fetchHighScore();
+    }, []); // Trigger only once at the start of the game
     useEffect(() => {
-        const apiURL = import.meta.env.VITE_API_URL;
-        try{
-            if (score > highScore) {
-                console.log('Score:', score);
-                console.log('High Score:', highScore);
-                axios.put(apiURL, { score });
-            }
-        }
-        catch (error) {
-            console.error("Error updating high score:", error);
-        }
-    }, [score, highScore]);
+      
+  
+      const updateHighScore = async () => {
+          if (score >= ogHS) {
+              
+          }
+      };
+  
+      updateHighScore();
+  }, [score]); // Trigger only when score changes
 
 
+/* 
+$ END SCORE SECTION-------------------------------------------------------------------------
 
+$ START GAME SECTION-------------------------------------------------------------------------
+*/
 
 
 
@@ -57,47 +65,79 @@ function Game() {
     return { top, left };
   };
 
-  const updatePositions = () => {
+  
+  const updateButtonPosition = () => {
     const buttonWidth = 100; 
     const buttonHeight = 50; 
     setPositions((prevPositions) => ({
+      ...prevPositions,
       clickMe: getRandomPosition(buttonWidth, buttonHeight),
+    }));
+  };
+
+  const updateMonsterPositions = () => {
+    const buttonWidth = 100; 
+    const buttonHeight = 50; 
+    setPositions((prevPositions) => ({
+      ...prevPositions,
       monsters: prevPositions.monsters.map(() => getRandomPosition(buttonWidth, buttonHeight))
     }));
   };
 
   useEffect(() => {
-    const interval = setInterval(updatePositions, 2000);
-    return () => clearInterval(interval); // Cleanup interval on unmount
-  }, [positions.monsters]);
+    const buttonInterval = setInterval(updateButtonPosition, 2000); // Move button every 2 seconds
+    const monsterInterval = setInterval(updateMonsterPositions, 2000); // Move monsters every 1 second
+    return () => {
+      clearInterval(buttonInterval); // Cleanup button interval on unmount
+      clearInterval(monsterInterval); // Cleanup monster interval on unmount
+    };
+  }, []);
 
   const handleClick = () => {
     const newScore = score + 1;
     setScore(newScore);
-   
+    console.log('score', score);
+    console.log('high', highScore);
+    if (newScore >= highScore) {
+      setHighScore(newScore);
+    }
     const buttonWidth = 100; // Approximate width of the button
     const buttonHeight = 50; // Approximate height of the button
     setPositions((prevPositions) => ({
       ...prevPositions,
+      clickMe: getRandomPosition(buttonWidth, buttonHeight), // Move the button to a new position
       monsters: [...prevPositions.monsters, getRandomPosition(buttonWidth, buttonHeight)]
     }));
   };
 
   const handleEndGame = () => {
-    navigate('/gameover');
+      const apiURL = import.meta.env.VITE_API_URL;
+      
+      if (score > ogHS) {
+          try {
+            axios.put(apiURL, { score });
+            
+            console.log("$High score updated to:", score);
+        } catch (error) {
+            console.error("Error updating high score:", error);
+        }
+      }
+        
+      
+      navigate('/gameover', { state : { score } });
   };
 
   return (
     <div className="game-container" style={{ position: 'relative', height: '100vh', width: '100vw' }}>
       <BackButton className="backbutton" />
-      <HighScore className="highscore" />
-      <p className="score">Score: {score}</p>
-      <div>
+      <h1 className="Highscore">High Score: {highScore}</h1>
+      <p className="score">Score: {score}</p> 
+      <div> 
         <button
-          className="clickme"
+          className="clickme" 
           onClick={handleClick}
           style={{
-            position: 'absolute',
+            position: 'absolute', 
             backgroundColor: 'light-blue',
             transition: 'background-color 0.1s ease',
             '&:hover': {
@@ -111,20 +151,27 @@ function Game() {
           Click Me
         </button>
 
-        {positions.monsters.map((monsterPos, index) => (
-          <img
-            key={index}
-            src={monster}
-            onClick={handleEndGame}
-            alt="monster"
-            style={{
-              position: 'absolute',
-              top: monsterPos.top,
-              left: monsterPos.left,
-              transform: 'translate(-50%, -50%)', // Center the image
-            }}
-          />
-        ))}
+        <div>
+          {positions.monsters.map((monsterPos, index) => (
+            <div
+              key={index} 
+              style={{
+                position: 'absolute',
+                top: monsterPos.top,
+                left: monsterPos.left,
+                transform: 'translate(-50%, -50%)', // Center the container
+
+              }}
+            >
+              <img className='monster1'
+                src={monster}
+                onClick={handleEndGame}
+                alt="monster"
+              />
+            </div>
+          ))}
+        </div>
+        
       </div>
 
     </div>

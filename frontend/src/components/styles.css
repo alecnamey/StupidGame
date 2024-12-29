@@ -17,8 +17,6 @@
     position: absolute; 
     top: 60%;
     max-height: 80%;
- 
-
     background-color: hsl(0, 1%, 62%);
     color: rgb(0, 0, 0);
     border-radius: 40px;
@@ -57,7 +55,7 @@
     color: rgb(0, 0, 0);
 }
 /*game.jsx high score display*/
-.game-container .scores {
+.Highscore {
     position: fixed; /* Changed to fixed for viewport stability */
     top: 1em; /* Adjusted to avoid overlap with other elements */
     right: 1em; /* Replaced left: 90% with right positioning for consistency */
@@ -99,7 +97,7 @@
     color: rgb(0, 0, 0);
  }
 
- .howto-container .tutorial-title{
+ .header-container .tutorial-title{
     top: 2em;
     display: absolute;
     margin: 0;
@@ -146,15 +144,17 @@
 
 .gameover-container .gameover{
     position: absolute;
-    top: 20%;
-    left: 25%;
-    background-color: hsl(11, 92%, 20%);
-    color: rgb(0, 0, 0);
-    font-size: 10rem;
-    padding: 0.2em;
-    border-radius: 40px;
-    font-family: 'Courier New', Courier, monospace;
-    z-index: 2;
+    left: 38%;
+    bottom: 50%;
+    width: 450px; /* Larger width */
+    height: 150px; /* Larger height */
+    display: flex; /* Enables flexbox for easy centering */
+    justify-content: center; /* Horizontally centers the content */
+    align-items: center; /* Vertically centers the content */
+    text-align: center; /* Ensures text is centered */
+    border: 2px solid black;
+    border-radius: 30px;
+    background-color: hsl(193, 67%, 29%);
 
 }
 
@@ -166,3 +166,25 @@
     border: 2px solid black;
     color: rgb(0, 0, 0);
 }
+
+.endscore{
+    position: absolute; /* Changed to fixed for viewport stability */
+    top: 60%; /* Adjusted to avoid overlap with other elements */
+    right: 44%; /* Replaced left: 90% with right positioning for consistency */
+    background-color: hsl(0, 1%, 62%);
+    color: rgb(0, 0, 0);
+    border-radius: 40px;
+    font-size: 1.2rem; /* Changed from em to rem for better scaling */
+    padding: 0.4em;
+    max-width: 200px; /* Restrict the maximum width */
+    width: auto; /* Allows flexibility */
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+.monster1{
+    
+    background-size: 0%;
+   cursor: pointer;
+   
+} 
