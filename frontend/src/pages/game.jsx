@@ -86,7 +86,7 @@ $ START GAME SECTION------------------------------------------------------------
 
   useEffect(() => {
     const buttonInterval = setInterval(updateButtonPosition, 2000); // Move button every 2 seconds
-    const monsterInterval = setInterval(updateMonsterPositions, 2000); // Move monsters every 1 second
+    const monsterInterval = setInterval(updateMonsterPositions, 1000); // Move monsters every 1 second
     return () => {
       clearInterval(buttonInterval); // Cleanup button interval on unmount
       clearInterval(monsterInterval); // Cleanup monster interval on unmount
@@ -160,13 +160,19 @@ $ START GAME SECTION------------------------------------------------------------
                 top: monsterPos.top,
                 left: monsterPos.left,
                 transform: 'translate(-50%, -50%)', // Center the container
-
+                pointerEvents: 'none', // Disable interaction on the container
               }}
             >
               <img className='monster1'
                 src={monster}
-                onClick={handleEndGame}
+                onClick={(e) => {
+                  e.stopPropagation(); // Stop the click from propagating to the parent
+                  handleEndGame();     // Trigger end game only when image is clicked
+                }}
                 alt="monster"
+                style={{
+                  pointerEvents: 'auto',  // Allow click event on the image itself
+                }}
               />
             </div>
           ))}
