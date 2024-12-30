@@ -7,6 +7,9 @@ import axios from 'axios';
 
 function Game() {
   
+  const [monsterTime, setMonsterTime] = useState(800);
+  const [buttonTime, setButtonTime] = useState(2000);
+
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [ogHS, setOgHS] = useState(0);
@@ -85,8 +88,8 @@ $ START GAME SECTION------------------------------------------------------------
   };
 
   useEffect(() => {
-    const buttonInterval = setInterval(updateButtonPosition, 2000); // Move button every 2 seconds
-    const monsterInterval = setInterval(updateMonsterPositions, 1000); // Move monsters every 1 second
+    const buttonInterval = setInterval(updateButtonPosition, buttonTime); // Move button every 2 seconds
+    const monsterInterval = setInterval(updateMonsterPositions, monsterTime); // Move monsters every 1 second
     return () => {
       clearInterval(buttonInterval); // Cleanup button interval on unmount
       clearInterval(monsterInterval); // Cleanup monster interval on unmount
@@ -96,8 +99,20 @@ $ START GAME SECTION------------------------------------------------------------
   const handleClick = () => {
     const newScore = score + 1;
     setScore(newScore);
-    console.log('score', score);
-    console.log('high', highScore);
+    // monster time and button time change after each click of the "Click Me" button
+    if (buttonTime == 0) {
+      setButtonTime(0);
+    }
+    if (monsterTime == 0) {
+      setMonsterTime(0);
+    }
+    const buttonTimer = buttonTime - 10;
+    setButtonTime(buttonTimer);
+    const monsterTimer = monsterTime - 10;
+    setMonsterTime(monsterTimer);
+    console.log("Button Time: ", buttonTime);
+    console.log("Monster Time: ", monsterTime);
+    // -----------------------------------------------
     if (newScore >= highScore) {
       setHighScore(newScore);
     }
@@ -165,10 +180,7 @@ $ START GAME SECTION------------------------------------------------------------
             >
               <img className='monster1'
                 src={monster}
-                onClick={(e) => {
-                  e.stopPropagation(); // Stop the click from propagating to the parent
-                  handleEndGame();     // Trigger end game only when image is clicked
-                }}
+                onClick = {handleEndGame}
                 alt="monster"
                 style={{
                   pointerEvents: 'auto',  // Allow click event on the image itself

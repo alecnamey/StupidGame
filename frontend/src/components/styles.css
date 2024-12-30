@@ -99,32 +99,32 @@
   margin: 0;
 }
 .howto-container .logo {
-  height: 30em;
+  height: 50%;
   width: auto;
-  position: fixed;
-  top: -5em;
-  left: 22em;
+  position: absolute;
+  top: -6%;
+  left: 30%;
 }
 
 .howto-table {
   background-color: hsla(180, 7%, 62%, 0.2);
   font-size: large;
-  margin-left: 32em;
-  margin-top: 9em;
+  left: 42%;
   border: 2px solid black;
+  position: absolute;
 }
 .howto-container .howto-title {
   background-color: hsla(180, 7%, 62%, 0.2);
-  position: fixed;
-  left: 12em;
-  top: 3em;
+  position: absolute;
+  top: 30%;
+  left: 43%;
   border: 2px solid black;
   border-radius: 20%;
-  padding: 0.1em;
+  padding: 0.5em;
 }
 
 .clickme {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   background-color: hsl(193, 67%, 29%);
@@ -133,6 +133,15 @@
   border-radius: 40px;
   font-family: "Courier New", Courier, monospace;
   z-index: 2;
+}
+
+.tutorialClick{
+  background-color: hsl(193, 67%, 29%);
+  font-size: 1.2rem;
+  margin: auto;
+  padding: 0.4em;
+  font-family: "Courier New", Courier, monospace;
+  border-radius: 40px;
 }
 
 .gameover-container .gameover {
@@ -174,13 +183,42 @@
 }
 
 .monster1 {
-    cursor: pointer;            /* Only the image will have the pointer */
-    padding: 0px;                  /* Remove inner spacing */
-    margin: 0px;                   /* Remove outer spacing */
-    background-color: transparent; /* Remove any background color */
-    background-size: 0px;        /* Ensure no background is displayed */
-    border: none;                /* No border */
-    display: block;              /* Makes sure image is a block element */
-    pointer-events: auto;          /* Allow clicks only on the image */
-  }
-  
+    background-color: transparent;
+    object-fit: cover;
+    clip-path: polygon(
+        50% 37%,  /* Top center */
+        54% 40%,  /* Top right */
+        55% 48%,  /* Bottom right */
+        50% 55%,  /* Bottom center */
+        45% 45%,  /* Bottom left */
+        46% 40%   /* Top left (closer to the center) */
+        
+    );
+    
+}
+.howto-table {
+    font-family: sans-serif;
+   
+    font-size: 20px; /* Increase font size */
+    color: rgb(163, 163, 173);
+    position: absolute;
+    
+    left: 30%;
+    width: 40%; /* Make the table take up 100% of the parent container's width */
+    border-collapse: collapse; /* Ensures no space between table cells */
+}
+
+.howto-table th, .howto-table td {
+    padding: 10px; /* Increase padding for larger cells */
+    text-align: left; /* Align text to the left (optional) */
+    border: 1px solid #ccc; /* Optional: Add borders for better visibility */
+}
+
+
+.thumb{
+    background-color: white;
+    position: absolute;
+    margin: 0%;
+    width: 5%;
+    height: 10%;
+}
